@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Strmeasy</title>
+        <link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/modern.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/waves.min.css" rel="stylesheet" type="text/css"/>
+        <link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link type="text/css" href="css/theme.css" rel="stylesheet">
+        <link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
+        <link href="css/jquery.datatables.min.css" rel="stylesheet" type="text/css"/>	
+        <link href="css/jquery.datatables_themeroller.css" rel="stylesheet" type="text/css"/>	
+        <link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet'>
+        <link rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+        <link rel="stylesheet" href="css/jquery.fileupload.css">
+        <link rel="stylesheet" href="css/jquery.fileupload-ui.css">
+        <!--        <noscript><link rel="stylesheet" href="css/jquery.fileupload-noscript.css"></noscript>
+                <noscript><link rel="stylesheet" href="css/jquery.fileupload-ui-noscript.css"></noscript>-->
+        <style>
+            /* Hide Angular JS elements before initializing */
+            .ng-cloak {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="overlay"></div>
+        <div class="navbar navbar-fixed-top">
+                          <div class="navbar-inner">
+                              <div class="container">
+                                  <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+                                      <i class="icon-reorder shaded"></i></a><a class="brand" href="index.html"><img src="images/strmeasy_logo.jpg" class="img-responsive" alt="Cinque Terre"> </a>
+                                  <div class="nav-collapse collapse navbar-inverse-collapse">
+                                      <ul class="nav nav-icons">
+                                          <li><a href="#"><i class="icon-envelope"></i></a></li>
+                                          <li><a href="#"><i class="icon-eye-open"></i></a></li>
+                                          <li><a href="#"><i class="icon-bar-chart"></i></a></li>
+                                      </ul>
+                                      <form class="navbar-search pull-left input-append" action="#">
+                                          <input type="text" class="span3">
+                                          <button class="btn" type="button">
+                                              <i class="icon-search"></i>
+                                          </button>
+                                      </form>
+                                      <ul class="nav pull-right">
+                                          <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown
+                                                  <b class="caret"></b></a>
+                                              <ul class="dropdown-menu">
+                                                  <li><a href="#">Item No. 1</a></li>
+                                                  <li><a href="#">Don't Click</a></li>
+                                                  <li class="divider"></li>
+                                                  <li class="nav-header">Example Header</li>
+                                                  <li><a href="#">A Separated link</a></li>
+                                              </ul>
+                                          </li>
+                                          <li><a href="#">Support </a></li>
+                                          <li class="nav-user dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                  <img src="images/user.png" class="nav-avatar" />
+                                                  <b class="caret"></b></a>
+                                              <ul class="dropdown-menu">
+                                                  <li><a href="#">Your Profile</a></li>
+                                                  <li><a href="#">Edit Profile</a></li>
+                                                  <li><a href="#">Account Settings</a></li>
+                                                  <li class="divider"></li>
+                                                  <li><a href="#">Logout</a></li>
+                                              </ul>
+                                          </li>
+                                      </ul>
+                                  </div>
+                                  <!--</nav-collapse -->
+                              </div>
+                          </div>
+                          <!--</navbar-inner -->
+                      </div>
+                      <!--</navbar -->        
+                      <div class="page-sidebar sidebar horizontal-bar">
+                          <div class="page-sidebar-inner">
+                              <ul class="menu accordion-menu">
+                                  <li class="nav-heading"><span>Navigation</span></li>
+                                  <li><a href="index.html"><span class="menu-icon icon-home"></span>&nbsp;Home</a></li>
+                                  <li><a href="index.html"><span class="menu-icon icon-video-camera"></span>&nbsp;&nbsp;My Catalogue </a></li>
+                                  <li class="active"><a href="encode.html"><span class="menu-icon icon-upload"></span>&nbsp;Encode</a></li>
+                              </ul>
+                          </div><!-- Page Sidebar Inner -->
+                      </div><!-- Page Sidebar -->
+                      <div class="page-inner">
+                          <div class="page-breadcrumb">
+                              <ol class="breadcrumb container">
+                                  <li><a href="index.html">Home</a></li>
+                                  <li class="active">Encode Files</li>
+                              </ol>
+                          </div>
+                      </div>
+                      <div class="wrapper">
+                          <div class="container">
+                              <div class="row">
+                                  <div class="span12">
+                                      <div class="content">
+                                          <div class="panel-group" id="accordion">
+                                              <div class="panel panel-default">
+                                                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                                      <div class="panel-heading expand">
+                                                          <h4 class="panel-title">
+                                                              Upload files
+                                                          </h4>
+                                                      </div>
+                                                  </a>                                        
+                                                  <div id="collapseOne" class="panel-collapse collapse in">
+                                                      <div class="panel-body">
+                                                          <form id="fileupload" method="POST" enctype="multipart/form-data" data-ng-app="demo" data-ng-controller="DemoFileUploadController" data-file-upload="options" data-ng-class="{'fileupload-processing': processing() || loadingFiles}">
+                                                              <div class="row fileupload-buttonbar">
+                                                                  <div class="col-lg-9">
+                                                                      <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
+                                                                          <i class="glyphicon glyphicon-plus"></i>
+                                                                          <span>Add files...</span>
+                                                                          <input type="file" name="files[]" multiple ng-disabled="disabled">
+                                                                      </span>
+                                                                      <button type="button" class="btn btn-primary start" data-ng-click="submit()">
+                                                                          <i class="glyphicon glyphicon-upload"></i>
+                                                                          <span>Start upload</span>
+                                                                      </button>
+                                                                      <button type="button" class="btn btn-warning cancel" data-ng-click="cancel()">
+                                                                          <i class="glyphicon glyphicon-ban-circle"></i>
+                                                                          <span>Cancel upload</span>
+                                                                      </button>
+                                                                      <span class="fileupload-process"></span>
+                                                                  </div>
+                                                                  <div class="col-lg-5 fade" data-ng-class="{in: active()}">
+                                                                      <div class="progress progress-striped active" data-file-upload-progress="progress()"><div class="progress-bar progress-bar-success" data-ng-style="{width: num + '%'}"></div></div>
+                                                                      <div class="progress-extended">&nbsp;</div>
+                                                                  </div>
+                                                              </div>
+                                                              <table class="table table-striped files ng-cloak">
+                                                                  <tr data-ng-repeat="file in queue" data-ng-class="{'processing': file.$processing()}">
+                                                                      <td data-ng-switch data-on="!!file.thumbnailUrl">
+                                                                          <div class="preview" data-ng-switch-when="true">
+                                                                              <a data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}" data-gallery><img data-ng-src="{{file.thumbnailUrl}}" alt=""></a>
+                                                                          </div>
+                                                                          <div class="preview" data-ng-switch-default data-file-upload-preview="file"></div>
+                                                                      </td>
+                                                                      <td>
+                                                                          <p class="name" data-ng-switch data-on="!!file.url">
+                                                                              <span data-ng-switch-when="true" data-ng-switch data-on="!!file.thumbnailUrl">
+                                                                                  <a data-ng-switch-when="true" data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}" data-gallery>{{file.name}}</a>
+                                                                                  <a data-ng-switch-default data-ng-href="{{file.url}}" title="{{file.name}}" download="{{file.name}}">{{file.name}}</a>
+                                                                              </span>
+                                                                              <span data-ng-switch-default>{{file.name}}</span>
+                                                                          </p>
+                                                                          <strong data-ng-show="file.error" class="error text-danger">{{file.error}}</strong>
+                                                                      </td>
+                                                                      <td>
+                                                                          <p class="size">{{file.size | formatFileSize}}</p>
+                                                                          <div class="progress progress-striped active fade" data-ng-class="{pending: 'in'}[file.$state()]" data-file-upload-progress="file.$progress()"><div class="progress-bar progress-bar-success" data-ng-style="{width: num + '%'}"></div></div>
+                                                                      </td>
+                                                                      <td>
+                                                                          <button type="button" class="btn btn-primary start" data-ng-click="file.$submit()" data-ng-hide="!file.$submit || options.autoUpload" data-ng-disabled="file.$state() == 'pending' || file.$state() == 'rejected'">
+                                                                              <i class="glyphicon glyphicon-upload"></i>
+                                                                              <span>Start</span>
+                                                                          </button>
+                                                                          <button type="button" class="btn btn-warning cancel" data-ng-click="file.$cancel()" data-ng-hide="!file.$cancel">
+                                                                              <i class="glyphicon glyphicon-ban-circle"></i>
+                                                                              <span>Cancel</span>
+                                                                          </button>
+                                                                          <!--                                                            <button data-ng-controller="FileDestroyController" type="button" class="btn btn-danger destroy" data-ng-click="file.$destroy()" data-ng-hide="!file.$destroy">
+                                                                                                                                          <i class="glyphicon glyphicon-trash"></i>
+                                                                                                                                          <span>Delete</span>
+                                                                                                                                      </button>-->
+                                                                      </td>
+                                                                  </tr>
+                                                              </table>
+                                                          </form> 
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <form action="encoding.html">
+                                                  <div class="panel panel-default">
+                                                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">                                        
+                                                          <div class="panel-heading">
+                                                              <h4 class="panel-title">
+                                                                  Video settings
+                                                              </h4>
+                                                          </div>
+                                                      </a>
+                                                      <div id="collapseTwo" class="panel-collapse collapse">
+                                                          <div class="panel-body">
+                                                              <div class="table-responsive">                               
+                                                                  <table class="table">  
+                                                                      <thead>
+                                                                          <tr>
+                                                                              <th>Select Target Devices</th>
+                                                                          </tr>
+                                                                      </thead>
+                                                                      <tbody>
+                                                                          <tr>
+                                                                              <td>
+                                                                                  <div class="checkbox">
+                                                                                      <label><input type="checkbox" ng-model="form.devices.nokia" value="Nokia x">Nokia x</label>
+                                                                                  </div>
+                                                                                  <div class="checkbox">
+                                                                                      <label><input type="checkbox" ng-model="form.devices.iphone" value="iPhone X">iPhone X</label>
+                                                                                  </div>
+                                                                                  <div class="checkbox">
+                                                                                      <label><input type="checkbox" ng-model="form.devices.nexus" value="Nexus X">Nexus X</label>
+                                                                                  </div>
+                                                                                  <div class="checkbox">
+                                                                                      <label><input type="checkbox" ng-model="form.devices.samsung" value="Samsung X">Samsung X</label>
+                                                                                  </div>
+                                                                                  <div class="checkbox">
+                                                                                      <label><input type="checkbox" ng-model="form.devices.motorola" value="Motorola X">Motorola X</label>
+                                                                                  </div>
+                                                                              </td>                                                                               
+                                                                          </tr>
+                                                                      </tbody>
+                                                                  </table>
+                                                              </div>
+                                                              <div class="table-responsive">                               
+                                                                  <table class="table">  
+                                                                      <thead>
+                                                                          <tr>
+                                                                              <th>Select Target Networks</th>
+                                                                          </tr>
+                                                                      </thead>
+                                                                      <tbody>
+                                                                          <tr>
+                                                                              <td>
+                                                                                  <div class="checkbox">
+                                                                                      <label><input type="checkbox" ng-model="form.networks.2g" value="2G">2G</label>
+                                                                                  </div>
+                                                                                  <div class="checkbox">
+                                                                                      <label><input type="checkbox" ng-model="form.networks.3g" value="3G">3G</label>
+                                                                                  </div>
+                                                                                  <div class="checkbox">
+                                                                                      <label><input type="checkbox" ng-model="form.networks.4g" value="4G">4G</label>
+                                                                                  </div>
+                                                                                  <div class="checkbox">
+                                                                                      <label><input type="checkbox" ng-model="form.networks.wifi" value="Wifi">WiFi</label>
+                                                                                  </div>
+                                                                              </td>                                                                               
+                                                                          </tr>
+                                                                      </tbody>
+                                                                  </table>
+                                                              </div>
+                                                              <div align="center">
+                                                                  <button type="submit" class="btn btn-primary" id="callEncode">Submit</button>
+                                                                  <input type="submit" class="btn btn-primary" value="Submit Form">
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </form>
+                                          </div>
+                                      </div><!--/.content-->
+                                  </div><!--/.span9-->
+                              </div>
+                          </div>
+                      </div>
+                      <script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+                      <script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+                      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+                      <script src="http://netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+                      <!--        <script src="scripts/upload.js"></script>-->
+                      <script src="http://blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
+                      <script src="http://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+                      <script src="http://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+                      <script src="scripts/jquery.iframe-transport.js"></script>
+                      <script src="scripts/jquery.fileupload.js"></script>
+                      <script src="scripts/jquery.fileupload-process.js"></script>
+                      <script src="scripts/jquery.fileupload-image.js"></script>
+                      <script src="scripts/jquery.fileupload-audio.js"></script>
+                      <script src="scripts/jquery.fileupload-video.js"></script>
+                      <script src="scripts/jquery.fileupload-validate.js"></script>
+                      <script src="scripts/jquery.fileupload-angular.js"></script>
+                      <script src="scripts/app.js"></script>
+
+
+
+
+
+
+
+                      <!-- The File Upload user interface plugin -->
+                      <!--        <script src="scripts/jquery.fileupload-ui.js"></script>
+                               The File Upload jQuery UI plugin 
+                              <script src="scripts/jquery.fileupload-jquery-ui.js"></script>
+                              <script id="template-upload" type="text/x-tmpl">
+                                  {% for (var i=0, file; file=o.files[i]; i++) { %}
+                              <tr class="template-upload">
+                                  <td>
+                                      <span class="preview"></span>
+                                  </td>
+                                  <td>
+                                      <p class="name">{%=file.name%}</p>
+                                      <strong class="error"></strong>
+                                  </td>
+                                  <td>
+                                      <p class="size">Processing...</p>
+                                      <div class="progress"></div>
+                                  </td>
+                                  <td>
+                                      {% if (!i && !o.options.autoUpload) { %}
+                                      <button class="start" disabled>Start</button>
+                                      {% } %}
+                                      {% if (!i) { %}
+                                      <button class="cancel">Cancel</button>
+                                      {% } %}
+                                  </td>
+                              </tr>
+                              {% } %}
+                          </script>
+                              The template to display files available for download 
+                          <script id="template-download" type="text/x-tmpl">
+                              {% for (var i=0, file; file=o.files[i]; i++) { %}
+                              <tr class="template-download">
+                                  <td>
+                                      <span class="preview">
+                                          {% if (file.thumbnailUrl) { %}
+                                          <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+                                          {% } %}
+                                      </span>
+                                  </td>
+                                  <td>
+                                      <p class="name"  id="filename">
+                                          <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
+                                      </p>
+                                      {% if (file.error) { %}
+                                      <div><span class="error">Error</span> {%=file.error%}</div>
+                                      {% } %}
+                                  </td>
+                                  <td>
+                                      <span class="size">{%=o.formatFileSize(file.size)%}</span>
+                                  </td>
+                                  <td>
+                                      <button class="delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>Delete</button>
+                                      <input type="checkbox" name="delete" value="1" class="toggle">
+                                  </td>
+                              </tr>
+                              {% } %}
+                          </script>-->
+                      <script>
+                          $(document).ready(function() {                
+                              $("#uploadFiles").change(function() {                    
+                                  if(this.files.length > 5){
+                                      alert('Maximum of 5 video files are allowed!');
+                                      this.value ='';
+                                  }
+                                  else {
+                                      if(!isVideo(this.files)) {
+                                          this.value ='';
+                                      }
+                                  }
+                   
+                              });
+                
+                              $("#clear").on('click', function() {
+                                  $("#uploadFiles").val('');
+                              });
+                          });
+			
+            
+                          function isVideo(filesArray) {
+					
+                              var fileName = '';
+                              var isSupported = false;
+                              for(var i=0; i < filesArray.length; i++)
+                              {
+                                  var fileName = "." + /[^.]+$/.exec(filesArray[i].name);
+                                  var videoFmts = /\.(flv|vob|avi|mov|wmv|3gp|swf|mp4|ogg)$/i;
+                                  if (videoFmts.test(fileName)) {
+                                      isSupported = true;
+                                  } else {
+                                      isSupported = false;
+                                      break;
+                                  }
+                              }
+                              if (!isSupported) {
+                                  alert("Unsupported file format - \"" + fileName + "\"");
+                              }					
+                              return isSupported;
+                          }		
+                      </script>
+                      <!--    <script>
+                              angular.module("myApp", [])
+                              .controller("frmCtrl", function ($scope, $http) {  
+                                  //            $scope.uploadedFile = function(element) {
+                                  //                $scope.$apply(function($scope) {
+                                  //                    $scope.files = element.files;         
+                                  //                });
+                                  //            }
+                                  $("#callEncode").on('click', function() {
+                                      encode($scope, $http);
+                                  });            
+                              });
+                              
+                              function encode($scope, $http) {   
+                                  var fd = new FormData();
+                                  var url = 'http://bskybvideo.cloudapp.net:8085/ott/saveencreq/';
+                                  alert('hi');
+                                  var files = document.getElementById('uploadFiles').value;
+                                  alert('hello' + files.value);
+                                  for(var i = 0; i < files.length; ++i)
+                                  {
+                                      // append each file to the data object
+                                      data.append('file[]', file.files[i]); 
+                                      alert('in');
+                                  }
+                                  
+                                  //            angular.forEach(files, function(file) {
+                                  //                alert('in');               
+                                  //                var data = {
+                                  //                    name : file.title,
+                                  //                    url : file.url
+                                  //                };
+                                  //                alert(data);
+                                  //            });
+                                  
+                                  var data = {
+                                      name : name,
+                                      type : type
+                                  };
+                      
+                                  fd.append("data", JSON.stringify(data));
+                                  
+                                  $http(url, fd, {
+                                      withCredentials : false,
+                                      dataType: 'json',
+                                      headers : { 'Content-Type': 'application/json' },
+                                      transformRequest : angular.identity
+                                  }).success(function(data) {
+                                      console.log(data);
+                                      if (!data.success) {
+                                          // if not successful, bind errors to error variables
+                                          $scope.errorName = data.errors.name;
+                                          $scope.errorSuperhero = data.errors.superheroAlias;
+                                      } else {
+                                          // if successful, bind success message to message
+                                          $scope.message = data.message;
+                                      }
+                                  });    
+                              }
+                          </script>-->
+        </body>
+    </html>
