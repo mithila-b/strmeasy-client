@@ -16,8 +16,8 @@
         <link rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
         <link rel="stylesheet" href="css/jquery.fileupload.css">
         <link rel="stylesheet" href="css/jquery.fileupload-ui.css">
-        <!--        <noscript><link rel="stylesheet" href="css/jquery.fileupload-noscript.css"></noscript>
-                <noscript><link rel="stylesheet" href="css/jquery.fileupload-ui-noscript.css"></noscript>-->
+        <!--<noscript><link rel="stylesheet" href="css/jquery.fileupload-noscript.css"></noscript>
+        <noscript><link rel="stylesheet" href="css/jquery.fileupload-ui-noscript.css"></noscript>-->
         <style>
             /* Hide Angular JS elements before initializing */
             .ng-cloak {
@@ -99,6 +99,11 @@
                     <div class="span12">
                         <div class="content">
                             <div class="panel-group" id="accordion">
+                                <div align ="center" style="display:none; font-weight:bold; font-style:italic; text-align: center;" id="message">
+                                    Your files are currently being encoded. 
+                                    A notification will be sent to your registered email address once the process is complete. 
+                                    Thank you. <br/><br/>
+                                </div>
                                 <div class="panel panel-default">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
                                         <div class="panel-heading expand">
@@ -108,22 +113,22 @@
                                         </div>
                                     </a>                                        
                                     <div id="collapseOne" class="panel-collapse collapse in">
-                                        <div class="panel-body">
+                                        <div class="panel-body">												
                                             <form id="fileupload" method="POST" enctype="multipart/form-data" data-ng-app="demo" data-ng-controller="DemoFileUploadController" data-file-upload="options" data-ng-class="{'fileupload-processing': processing() || loadingFiles}">
                                                 <div class="row fileupload-buttonbar">
                                                     <div class="col-lg-9">
                                                         <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
                                                             <i class="glyphicon glyphicon-plus"></i>
                                                             <span>Add files...</span>
-                                                            <input type="file" name="files[]" multiple ng-disabled="disabled" id="uploadFiles">
+                                                            <input type="file" name="files[]" multiple ng-disabled="disabled">
                                                         </span>
                                                         <button type="button" class="btn btn-primary start" data-ng-click="submit()">
                                                             <i class="glyphicon glyphicon-upload"></i>
-                                                            <span>Upload all</span>
+                                                            <span>Start upload</span>
                                                         </button>
                                                         <button type="button" class="btn btn-warning cancel" data-ng-click="cancel()">
                                                             <i class="glyphicon glyphicon-ban-circle"></i>
-                                                            <span>Cancel all</span>
+                                                            <span>Cancel upload</span>
                                                         </button>
                                                         <span class="fileupload-process"></span>
                                                     </div>
@@ -132,7 +137,7 @@
                                                         <div class="progress-extended">&nbsp;</div>
                                                     </div>
                                                 </div>
-                                                <table class="table table-striped files ng-cloak" id="previewTab">
+                                                <table class="table table-striped files ng-cloak">
                                                     <tr data-ng-repeat="file in queue" data-ng-class="{'processing': file.$processing()}">
                                                         <td data-ng-switch data-on="!!file.thumbnailUrl">
                                                             <div class="preview" data-ng-switch-when="true">
@@ -162,54 +167,44 @@
                                                             <button type="button" class="btn btn-warning cancel" data-ng-click="file.$cancel()" data-ng-hide="!file.$cancel">
                                                                 <i class="glyphicon glyphicon-ban-circle"></i>
                                                                 <span>Cancel</span>
-                                                            </button>
-                                                            <!--                                                            <button data-ng-controller="FileDestroyController" type="button" class="btn btn-danger destroy" data-ng-click="file.$destroy()" data-ng-hide="!file.$destroy">
-                                                                                                                            <i class="glyphicon glyphicon-trash"></i>
-                                                                                                                            <span>Delete</span>
-                                                                                                                        </button>-->
+                                                            </button>                                                                         
                                                         </td>
                                                     </tr>
                                                 </table>
-                                            </form> 
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                                <form action="encoding.html">
-                                    <div class="panel panel-default">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">                                        
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    Video settings
-                                                </h4>
-                                            </div>
-                                        </a>
-                                        <div id="collapseTwo" class="panel-collapse collapse">
+                                <div class="panel panel-default">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">                                        
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                Video settings
+                                            </h4>
+                                        </div>
+                                    </a>
+                                    <div id="collapseTwo" class="panel-collapse collapse">
+                                        <form id="formupload" ng-submit="submitData(form, 'ajaxSubmitResult1')" data-ng-app="form" data-ng-controller="FormController">
                                             <div class="panel-body">
                                                 <div class="table-responsive">                               
                                                     <table class="table">  
                                                         <thead>
                                                             <tr>
-                                                                <th>Select Target Devices</th>
+                                                                <th>Select Target Platforms</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr>
                                                                 <td>
                                                                     <div class="checkbox">
-                                                                        <label><input type="checkbox" ng-model="form.devices.nokia" value="Nokia x">Nokia x</label>
+                                                                        <label><input type="checkbox" ng-model="form.platforms.android" value="ANDROID">ANDROID</label>
                                                                     </div>
                                                                     <div class="checkbox">
-                                                                        <label><input type="checkbox" ng-model="form.devices.iphone" value="iPhone X">iPhone X</label>
+                                                                        <label><input type="checkbox" ng-model="form.platforms.ios" value="iOS">iOS</label>
                                                                     </div>
                                                                     <div class="checkbox">
-                                                                        <label><input type="checkbox" ng-model="form.devices.nexus" value="Nexus X">Nexus X</label>
-                                                                    </div>
-                                                                    <div class="checkbox">
-                                                                        <label><input type="checkbox" ng-model="form.devices.samsung" value="Samsung X">Samsung X</label>
-                                                                    </div>
-                                                                    <div class="checkbox">
-                                                                        <label><input type="checkbox" ng-model="form.devices.motorola" value="Motorola X">Motorola X</label>
-                                                                    </div>
+                                                                        <label><input type="checkbox" ng-model="form.platforms.windows" value="WINDOWS">WINDOWS</label>
+                                                                    </div>                                                                    
                                                                 </td>                                                                               
                                                             </tr>
                                                         </tbody>
@@ -226,16 +221,16 @@
                                                             <tr>
                                                                 <td>
                                                                     <div class="checkbox">
-                                                                        <label><input type="checkbox" ng-model="form.networks.2g" value="2G">2G</label>
+                                                                        <label><input type="checkbox" ng-model="form.networks.twog" value="2G">2G</label>
                                                                     </div>
                                                                     <div class="checkbox">
-                                                                        <label><input type="checkbox" ng-model="form.networks.3g" value="3G">3G</label>
+                                                                        <label><input type="checkbox" ng-model="form.networks.threeg" value="3G">3G</label>
                                                                     </div>
                                                                     <div class="checkbox">
-                                                                        <label><input type="checkbox" ng-model="form.networks.4g" value="4G">4G</label>
+                                                                        <label><input type="checkbox" ng-model="form.networks.fourg" value="4G">4G</label>
                                                                     </div>
                                                                     <div class="checkbox">
-                                                                        <label><input type="checkbox" ng-model="form.networks.wifi" value="Wifi">WiFi</label>
+                                                                        <label><input type="checkbox" ng-model="form.networks.wifi" value="Wifi" >WiFi</label>
                                                                     </div>
                                                                 </td>                                                                               
                                                             </tr>
@@ -243,12 +238,12 @@
                                                     </table>
                                                 </div>
                                                 <div align="center">
-                                                    <button type="submit" class="btn btn-primary" id="callEncode">Submit</button>
+                                                    <button type="submit" class="btn btn-primary" >Submit</button>
                                                 </div>
-                                            </div>
-                                        </div>
+                                            </div>  
+                                        </form>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div><!--/.content-->
                     </div><!--/.span9-->
@@ -273,10 +268,10 @@
         <script src="scripts/app.js"></script>
         <script>
             $(document).ready(function() {                
-                $("#uploadFiles").change(function() {                    
+                $("#upload_file").change(function() {                    
                     if(this.files.length > 5){
                         alert('Maximum of 5 video files are allowed!');
-                        $("#previewTab").val('');                        
+                        this.value ='';
                     }
                     else {
                         if(!isVideo(this.files)) {
@@ -287,7 +282,7 @@
                 });
                 
                 $("#clear").on('click', function() {
-                    $("#uploadFiles").val('');
+                    $("#upload_file").val('');
                 });
             });
 			
@@ -311,7 +306,80 @@
                     alert("Unsupported file format - \"" + fileName + "\"");
                 }					
                 return isSupported;
-            }		
-        </script>        
+            }	
+        </script>   
+        <script>
+            var formModule = angular.module("form", []);
+            formModule.controller("FormController",
+            function($scope, $http) {
+                $scope.file = {};
+                $scope.form = {};		 
+                $scope.submitData = function ()
+                {   
+                    var name = null;
+                    $('table.table.table-striped.files tbody tr.ng-scope').each(function(i, e) {
+                        name = $(e).find('p.name').text().trim(); //.replace(/\.[^/.]+$/, ""); 
+                    });
+                    
+                    $http({
+                        method  : 'POST',
+                        url     : 'http://bskybvideo.cloudapp.net:8085/ott/saveencreq/',
+                        data: {
+                            cat_title: name,
+                            cat_description: " description about video",
+                            cat_encode_details: {
+                                status: "No",
+                                devices: [
+                                    {
+                                        type: "ANDROID",
+                                        value: $scope.form.platforms.android
+                                    },
+                                    {
+                                        type: "iOS",
+                                        value: $scope.form.platforms.ios
+                                    },
+                                    {
+                                        type: "WINDOWS",
+                                        value: $scope.form.platforms.windows
+                                    }
+                                ],
+                                networks: [
+                                    {
+                                        type: "2G",
+                                        value: $scope.form.networks.twog
+                                    },
+                                    {
+                                        type: "3G",
+                                        value: $scope.form.networks.threeg
+                                    },
+                                    {
+                                        type: "4G",
+                                        value: $scope.form.networks.fourg
+                                    },
+                                    {
+                                        type: "wifi",
+                                        value: $scope.form.networks.wifi
+                                    }
+                                ]
+                            }
+							  
+                        },
+                        dataType: 'json',
+                        headers : { 'Content-Type': 'application/json' } 
+                    })
+                    .success(function(data) {
+                        document.getElementById('message').style.display="inline";
+                        //                        if (data.success) {
+                        //                            $scope.message = data.message; 
+                        //                            alert('here')
+                        //                            document.getElementById('message').style.display=inline;
+                        //                        } else {
+                        //                            // if unsuccessful, show error message                            
+                        //                        }
+                    });			  
+                };
+            });
+            angular.bootstrap(document.getElementById("formupload"),['form']);
+        </script>
     </body>
 </html>
